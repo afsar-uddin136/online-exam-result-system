@@ -27,11 +27,11 @@ public class ResultController {
     @GetMapping("/search")
     public ResponseEntity<?> searchResult(@RequestParam Long examId,@RequestParam String roll){
         try{
-
+            ResultSummary result = resultService.searchResult(examId, roll);
+            return new ResponseEntity<>(result,HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
-        ResultSummary result = resultService.searchResult(examId, roll);
-        return new ResponseEntity<>(result,HttpStatus.OK);
+
     }
 }

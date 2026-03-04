@@ -33,7 +33,7 @@ public class ExamController {
         if(allExams.isEmpty()){
             return new ResponseEntity<>("No exams found",HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(allExams,HttpStatus.OK);
     }
 
     @PostMapping("/{id}/publish")
