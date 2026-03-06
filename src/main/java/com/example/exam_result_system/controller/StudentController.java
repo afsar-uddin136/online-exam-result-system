@@ -32,4 +32,10 @@ public class StudentController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<?> getStudentsByClass(@RequestParam Long classId){
+        List<Student> studentsByClass = studentService.getStudentsByClass(classId);
+        return new ResponseEntity<>(studentsByClass,HttpStatus.OK);
+    }
+
 }

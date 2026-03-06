@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Result System | Professional Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="container">
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>EduResult</span>
+        </div>
+        <nav class="nav-menu" id="navMenu">
+            <a href="#" class="nav-link active" onclick="showSection('hero-section')">Home</a>
+
+            <a href="#" class="nav-link" onclick="showSection('result-search')">Result</a>
+
+            <a href="#" class="nav-link">About</a>
+            <div class="dropdown">
+                <button class="admin-btn">Admin <i class="fas fa-chevron-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="#" onclick="showSection('admin-students')"><i class="fas fa-user-graduate"></i> Students</a>
+
+                    <a href="#" onclick="showSection('admin-exams')"><i class="fas fa-file-invoice"></i> Exams</a>
+                    <a href="#" onclick="showSection('admin-marks')"><i class="fas fa-plus-circle"></i> Add Result</a>
+                    <hr>
+                    <a href="#"><i class="fas fa-chart-line"></i> Dashboard</a>
+                </div>
+            </div>
+        </nav>
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+</header>
+
+<main class="hero" id="hero-section">
+    <div class="container text-center">
+        <span class="badge">Official Academic Portal</span>
+        <h1 class="hero-title">Search Your <span class="text-gradient">Academic Result</span></h1>
+        <p class="hero-subtitle">Access your semester grades, transcripts, and official academic performance instantly with your secure roll number.</p>
+        <div class="cta-group">
+            <button class="btn btn-primary btn-lg" onclick="scrollToSearch(event)">
+                <i class="fas fa-search"></i> Search Result
+            </button>
+        </div>
+    </div>
+</main>
+
+<section id="result-search" class="section-padding">
+    <div class="container">
+        <div class="search-card shadow-lg">
+            <h2 class="form-title text-center">Check Your Performance</h2>
+            <div class="search-grid">
+                <div class="input-group">
+                    <label for="examName"><i class="fas fa-file-alt"></i> Exam Name</label>
+                    <select id="examName" class="custom-select">
+                        <option value="" selected disabled>Select Exam</option>
+                        <option value="Final">Final Exam</option>
+                        <option value="Midterm">Midterm Exam</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="examYear"><i class="fas fa-calendar-alt"></i> Passing Year</label>
+                    <input type="number" id="examYear" placeholder="e.g. 2026" class="custom-input">
+                </div>
+                <div class="input-group">
+                    <label for="studentRoll"><i class="fas fa-id-card"></i> Roll Number</label>
+                    <input type="text" id="studentRoll" placeholder="e.g. 1001" class="custom-input">
+                </div>
+                <div class="input-group">
+                    <label for="searchClassId"><i class="fas fa-school"></i> Class Name</label>
+                    <select id="searchClassId" class="custom-select">
+                        <option value="" selected disabled>Select Class</option>
+                        <option value="1">Class 8</option>
+                        <option value="2">Class 9</option>
+                        <option value="3">Class 10</option>
+                    </select>
+                </div>
+            </div>
+            <button id="searchBtn" class="btn btn-primary btn-block mt-4" onclick="handleResultSearch()">
+                <i class="fas fa-paper-plane"></i> Get Official Result
+            </button>
+        </div>
+
+        <div id="marksheetWrapper" class="hidden-section mt-5">
+            <div class="marksheet-card">
+                <div class="marksheet-header">
+                    <div class="school-info">
+                        <h3>ACADEMIC TRANSCRIPT</h3>
+                        <p id="displayExamName">Final Examination - 2026</p>
+                    </div>
+                    <div class="result-badge" id="gpaBadge">
+                        <span class="label">GPA</span>
+                        <span class="value" id="displayGPA">0.00</span>
+                    </div>
+                </div>
+                <div class="marksheet-body">
+                    <div class="student-meta">
+                        <p><strong>Name:</strong> <span id="displayName">---</span></p>
+                        <p><strong>Roll:</strong> <span id="displayRoll">---</span></p>
+                        <p><strong>Status:</strong> <span id="displayStatus" class="status-pill">PASSED</span></p>
+                    </div>
+                    <div class="grade-circle">
+                        <span id="displayGrade">-</span>
+                    </div>
+                </div>
+<!--                <div class="marksheet-footer">-->
+<!--                    <p><i class="fas fa-info-circle"></i> This is a computer-generated document.</p>-->
+<!--                    <button class="btn-print" onclick="window.print()"><i class="fas fa-print"></i> Print</button>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="admin-students" class="section-padding d-none">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold"><i class="fas fa-user-graduate"></i> Student Records</h2>
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary" onclick="fetchStudents()">
+                    <i class="fas fa-list-ul"></i> List of All Students
+                </button>
+                <button class="btn btn-primary" onclick="toggleStudentForm()">
+                    <i class="fas fa-user-plus"></i> Add New Student
+                </button>
+            </div>
+        </div>
+
+        <div id="addStudentForm" class="search-card shadow-sm mb-5 d-none">
+<!--            <h4 class="mb-4">Register New Student</h4>-->
+            <form id="studentDataForm" onsubmit="handleStudentSubmit(event)">
+                <div class="search-grid">
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" id="stdName" class="custom-input" placeholder="Enter name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Roll Number</label>
+                        <input type="text" id="stdRoll" class="custom-input" placeholder="e.g. 1001" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Registration No</label>
+                        <input type="text" id="stdRegNo" class="custom-input" placeholder="e.g. REG-01" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Select Class</label>
+                        <select id="stdClassId" class="custom-select" required>
+                            <option value="" selected disabled>Choose Class Name</option>
+                            <option value="1">Class 8</option>
+                            <option value="2">Class 9</option>
+                            <option value="3">Class 10</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Session</label>
+                        <input type="text" id="stdSession" class="custom-input" placeholder="e.g. 2025-26" required>
+                    </div>
+                </div>
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Save Information</button>
+                    <button type="button" class="btn btn-primary" onclick="toggleStudentForm()">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="studentTableWrapper" class="table-container shadow-sm d-none">
+            <table class="modern-table">
+                <thead>
+                <tr>
+                    <th>Roll</th>
+                    <th>Student Name</th>
+                    <th>Class</th> <th>Session</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section id="admin-exams" class="section-padding d-none">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold"><i class="fas fa-file-invoice"></i> Exam Management</h2>
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary" onclick="fetchExams()">
+                    <i class="fas fa-list-ul"></i> List of All Exams
+                </button>
+
+                <button class="btn btn-primary" onclick="toggleExamForm()">
+                    <i class="fas fa-plus"></i> Create New Exam
+                </button>
+            </div>
+        </div>
+
+        <div id="createExamForm" class="search-card shadow-sm mb-5 d-none">
+            <form id="examDataForm" onsubmit="handleExamCreate(event)">
+                <div class="search-grid">
+                    <div class="input-group">
+                        <label>Exam Name</label>
+                        <input type="text" id="newExamName" class="custom-input" placeholder="e.g. Final Exam" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Year</label>
+                        <input type="number" id="newExamYear" class="custom-input" placeholder="2026" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Session</label>
+                        <input type="text" id="newExamSession" class="custom-input" placeholder="e.g. 2025-26" required>
+                    </div>
+                </div>
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" id="examCreateBtn" class="btn btn-primary">Save Exam</button>
+                    <button type="button" class="btn btn-primary" onclick="toggleExamForm()">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="examTableWrapper" class="table-container shadow-sm d-none">
+            <table class="modern-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Exam Name</th>
+                    <th>Year</th>
+                    <th>Session</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="examTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section id="admin-marks" class="section-padding d-none">
+    <div class="container">
+        <h2 class="fw-bold mb-4"><i class="fas fa-edit"></i>Marks Entry</h2>
+
+        <div class="search-card shadow-sm mb-4">
+            <div class="search-grid">
+                <div class="input-group">
+                    <label>Select Exam</label>
+                    <select id="entryExamId" class="custom-select" required></select>
+                </div>
+                <div class="input-group">
+                    <label>Select Class</label>
+                    <select id="entryClassId" class="custom-select" required>
+                        <option value="1">Class 8</option>
+                        <option value="2">Class 9</option>
+                        <option value="3">Class 10</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-primary mt-3" onclick="loadStudentsForMarks()">
+                <i class="fas fa-users"></i> Load Students
+            </button>
+        </div>
+
+        <div id="entryTableWrapper" class="table-container shadow-sm d-none">
+            <table class="modern-table">
+                <thead>
+                <tr>
+                    <th>Roll</th>
+                    <th>Student Name</th>
+                    <th>Marks (100)</th>
+                </tr>
+                </thead>
+                <tbody id="entryTableBody"></tbody>
+            </table>
+            <div class="p-3 text-end bg-light border-top">
+                <button class="btn btn-primary" onclick="submitBulkMarks()">
+                    <i class="fas fa-save"></i> Save All Results
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer style="text-align: center; padding: 40px 0; color: var(--text-muted); font-size: 0.9rem;">
+    <p>&copy; 2026 EduResult Portal.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

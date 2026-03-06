@@ -25,4 +25,11 @@ public class ExamService {
         exam.setPublishStatus("PUBLISHED");
         return examRepository.save(exam);
     }
+
+    public Exam draftExam(Long id){
+        Exam exam = examRepository.findById(id).orElseThrow(() -> new RuntimeException("Exam not found with Id: " + id));
+        exam.setPublishStatus("DRAFT");
+        return examRepository.save(exam);
+
+    }
 }

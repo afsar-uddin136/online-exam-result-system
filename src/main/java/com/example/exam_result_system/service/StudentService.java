@@ -19,4 +19,8 @@ public class StudentService {
     public List<Student> getAllStudents(){
         return studentRepository.findAll();
     }
+
+    public List<Student> getStudentsByClass(Long classId){
+       return studentRepository.findByClassEntityClassId(classId);
+    }
 }

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface ResultSummaryRepository extends JpaRepository<ResultSummary,Long> {
-Optional<ResultSummary> findByExamExamIdAndStudentStudentId(Long examId,Long studentId);
+    Optional<ResultSummary> findByExamExamNameAndExamYearAndStudentRoll(String examName, int year, String roll);
 }

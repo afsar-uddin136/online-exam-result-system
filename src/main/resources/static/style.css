@@ -1,0 +1,404 @@
+/* Root Variables */
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary: #10b981;
+    --bg: #f9fafb;
+    --text-main: #111827;
+    --text-muted: #4b5563;
+    --white: #ffffff;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navbar Styles */
+.navbar {
+    height: 80px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary);
+}
+
+/* Admin Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.admin-btn {
+    background: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ১. অ্যাডমিন ড্রপডাউন কন্টেইনার */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* ২. ইনভিজিবল ব্রিজ (এটি বাটন এবং মেনুর মাঝখানের গ্যাপ পূরণ করবে) */
+.dropdown::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 15px; /* এটি বাটন থেকে মেনু পর্যন্ত অদৃশ্য দেয়াল হয়ে থাকবে */
+}
+
+/* ৩. ড্রপডাউন মেনু (এই অংশটি ওভারল্যাপিং ঠিক করবে) */
+.dropdown-content {
+    display: none;
+    flex-direction: column; /* এটি ডাটাগুলোকে একটির নিচে আরেকটি সাজাবে */
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #ffffff;
+    min-width: 220px; /* চওড়া একটু বাড়িয়ে দেওয়া হলো */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    border: 1px solid #eef0f2;
+    margin-top: 10px; /* তোমার কাঙ্ক্ষিত গ্যাপ বজায় থাকবে */
+    z-index: 1000;
+    overflow: hidden;
+}
+
+/* হোভারে ব্রিজ এবং মেনু উভয়ই কাজ করবে */
+.dropdown:hover .dropdown-content {
+    display: flex; /* ব্লক এর বদলে ফ্লেক্স ব্যবহার করা হয়েছে যাতে লিস্ট সোজা থাকে */
+}
+
+/* ৪. ড্রপডাউনের ভেতরের লিঙ্কগুলোর স্টাইল */
+.dropdown-content a {
+    color: #1f2937 !important;
+    padding: 12px 20px;
+    text-decoration: none !important; /* ছবির ওই নীল আন্ডারলাইন সরাবে */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+}
+
+.dropdown-content a:hover {
+    background-color: #f3f4f6;
+    color: #4f46e5 !important;
+}
+
+/* Hero Section */
+.hero {
+    padding: 120px 0;
+    background: radial-gradient(circle at top right, #eef2ff, transparent);
+}
+
+.text-center { text-align: center; }
+
+.badge {
+    background: #e0e7ff;
+    color: var(--primary);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin: 20px 0;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.text-gradient {
+    background: linear-gradient(to right, var(--primary), #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+/* Buttons */
+.btn {
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* Mobile Toggle */
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .nav-menu { display: none; }
+    .menu-toggle { display: block; }
+    .hero-title { font-size: 2.5rem; }
+}
+
+/* Feature 2 Style Improvements */
+.section-padding { padding: 60px 0; }
+
+.search-card {
+    background: var(--white);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid #f0f0f0;
+}
+
+.form-title { margin-bottom: 30px; font-weight: 700; color: var(--primary); }
+
+.search-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.custom-input, .custom-select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.custom-input:focus, .custom-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+.btn-block { width: 100%; justify-content: center; }
+
+/* Marksheet Aesthetics */
+.hidden-section {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hidden-section.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.marksheet-card {
+    background: var(--white);
+    max-width: 700px;
+    margin: 0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--primary);
+}
+
+.marksheet-header {
+    background: var(--primary);
+    color: white;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-badge {
+    background: rgba(255,255,255,0.2);
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.result-badge .value { display: block; font-size: 1.8rem; font-weight: 800; }
+
+.marksheet-body {
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.grade-circle {
+    width: 100px;
+    height: 100px;
+    border: 5px solid var(--secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--secondary);
+}
+
+.status-pill {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.marksheet-footer {
+    padding: 20px 40px;
+    background: #f9fafb;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-print {
+    background: none;
+    border: 1px solid var(--text-muted);
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Admin Table Styles */
+.table-container {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+}
+
+.modern-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.modern-table th {
+    background: #f9fafb;
+    padding: 16px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 2px solid #f3f4f6;
+}
+
+.modern-table td {
+    padding: 16px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 0.95rem;
+}
+
+.modern-table tr:hover {
+    background-color: #fcfcfd;
+}
+
+.btn-icon {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 5px;
+    color: var(--text-muted);
+    transition: 0.3s;
+}
+
+.btn-icon:hover { color: var(--primary); }
+
+.d-none { display: none !important; }

@@ -46,4 +46,14 @@ public class ExamController {
         }
 
     }
+
+    @PostMapping("/{id}/draft")
+    public ResponseEntity<?> draftExam(@PathVariable Long id){
+        try {
+            Exam draftedExam = examService.draftExam(id);
+            return new ResponseEntity<>(draftedExam, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }
